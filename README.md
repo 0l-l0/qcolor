@@ -27,7 +27,7 @@ actual work.
 First of all you need to specify the project location of the OpenCLAda library.
 This can be done by setting the value of `GPR_PROJECT_PATH`:
 
-```console
+```sh
 export GPR_PROJECT_PATH
 ```
 
@@ -40,14 +40,14 @@ with a library separator to it.)
 After you are confident the `GPR_PROJECT_PATH` variable is set correctly simply
 run:
 
-```console
+```sh
 ./build.sh
 ```
 
 If everything works well, you will get an executable in the `bin` directory. To
 start fooling around you may want to read the help message first.
 
-```console
+```sh
 ./bin/qcolor -h
 ```
 
