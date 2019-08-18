@@ -1,0 +1,6 @@
+bin
+deps-git
+ext
+graph/*
+!graph/test.ascii
+obj
