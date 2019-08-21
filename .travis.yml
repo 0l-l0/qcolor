@@ -9,7 +9,7 @@ addons:
     - gprbuild
 
 install:
-  - [ -d ext ] && rm -rf ext
+  - test -d ext && rm -rf ext
   - git clone https://github.com/flyx/OpenCLAda.git ext/OpenCLAda
 
 script:
