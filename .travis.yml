@@ -1,4 +1,4 @@
-language: generic
+language: sh
 sudo: false
 
 addons:
@@ -7,7 +7,6 @@ addons:
     packages:
     - libpocl2
     - gprbuild
-    - git
 
 install:
   - [ -d ext ] && rm -rf ext
