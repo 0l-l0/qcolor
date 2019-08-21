@@ -1,5 +1,6 @@
 language: sh
 sudo: false
+dist: bionic
 
 addons:
   apt:
