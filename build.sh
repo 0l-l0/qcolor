@@ -47,7 +47,7 @@ export GPR_PROJECT_PATH=${GPR_PROJECT_PATH:-'./ext/OpenCLAda'}
 
 gprbuild -p -Pquasi_coloring.gpr \
 	-XWindowing_System=$WIN_SYS -Xmode=release \
-	-largs `pkg-config --libs --cflags OpenCL` $TEST_ARGS
+	$TEST_ARGS -largs `pkg-config --libs --cflags OpenCL`
 
 if [ $? -ne 0 ]
 then
