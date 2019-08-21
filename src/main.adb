@@ -29,12 +29,34 @@ with Qcolor.Tools;	use Qcolor.Tools;
 with Qcolor.Host;
 with Qcolor.Help;
 
+with CL.Platforms;
+
 with Ada.Command_Line;	use Ada.Command_Line;
 with Ada.Directories;	use Ada.Directories;
+with Ada.Environment_Variables;
+with Ada.Strings.Unbounded;
+with Ada.Strings.Unbounded.Equal_Case_Insensitive;
 
 procedure Main is
+   package Env_Var renames Ada.Environment_Variables;
+   package Str_U renames Ada.Strings.Unbounded;
+
+   -- String manipulation functions
+   function Str2Unb(Orig : String) return Str_U.Unbounded_String
+      renames Str_U.To_Unbounded_String;
+
+   function Unb2Str(Orig : Str_U.Unbounded_String) return String
+      renames Str_U.To_String;
+
+   function Str_Eq_I(Left, Right : Str_U.Unbounded_String) return Boolean
+      renames Str_U.Equal_Case_Insensitive;
+
    ASCII_File : T_IO.File_Type;
    Graph_File : S_IO.File_Type;
+
+   -- Variables for device selection
+   Dev_Kind_Name : Str_U.Unbounded_String := Str2Unb("GPU");
+   Dev_Kind : CL.Platforms.Device_Kind;
 begin
    if Argument_Count = 0 then
       raise No_Arguments;
@@ -64,8 +86,26 @@ begin
    elsif Argument(1) = "-c" and Argument_Count = 3 then
       S_IO.Open(Graph_File, S_IO.In_File, "../graph/"&Argument(2)&".bit");
 
+      -- Selecting default OpenCL device
+      if Env_Var.Exists("CL_DEFAULT_DEVICE")
+      then
+         Dev_Kind_Name := Str2Unb(Env_Var.Value("CL_DEFAULT_DEVICE"));
+      end if;
+
+      if Str_Eq_I(Dev_Kind_Name, Str2Unb("GPU")) then
+         Dev_Kind := CL.Platforms.Device_Kind'(GPU => True, others => False);
+      elsif Str_Eq_I(Dev_Kind_Name, Str2Unb("CPU")) then
+         Dev_Kind := CL.Platforms.Device_Kind'(CPU => True, others => False);
+      elsif Str_Eq_I(Dev_Kind_Name, Str2Unb("ACCELERATOR")) then
+         Dev_Kind :=
+            CL.Platforms.Device_Kind'(Accelerator => True, others => False);
+      else
+         raise Invalid_Device_Kind;
+      end if;
+
       Host(Source_File => Graph_File,
-           Clr_Num => Nat_To_Unit(Natural'Value(Argument(3))));
+           Clr_Num => Nat_To_Unit(Natural'Value(Argument(3))),
+           CL_Device_Kind => Dev_Kind);
 
       S_IO.Close(Graph_File);
 
@@ -84,6 +124,11 @@ exception
    when Imperfect_File =>
       T_IO.New_Line;
       T_IO.Put_Line("The graph-file contains lesser nodes than it is defined!");
+   when Invalid_Device_Kind =>
+      T_IO.New_Line;
+      T_IO.Put_Line("The value '" & Unb2Str(Dev_Kind_Name) & "' of the " &
+         "environment variable CL_DEFAULT_DEVICE is not a valid device kind name.");
+      T_IO.Put_Line(" Please select one of GPU, CPU and ACCELERATOR.");
    when No_Arguments =>
       Help(Short);
 end Main;

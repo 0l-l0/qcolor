@@ -55,6 +55,13 @@ begin
          T_IO.New_Line;
          T_IO.Put_Line(ASCII.HT & ASCII.HT & "<arguments> : <graph-file> <number-of-colors>");
          T_IO.New_Line;
+         T_IO.Put_Line(ASCII.HT & ASCII.HT & "For the computation qcolor uses GPU, if available.");
+         T_IO.Put_Line(ASCII.HT & ASCII.HT & "If you do not have one or want to run the coloring");
+         T_IO.Put_Line(ASCII.HT & ASCII.HT & "on another type of device, set the type in the");
+         T_IO.Put_Line(ASCII.HT & ASCII.HT & "variable CL_DEFAULT_DEVICE. The possible types are:");
+         T_IO.Put_Line(ASCII.HT & ASCII.HT & "GPU, CPU, ACCELERATOR.");
+         T_IO.New_Line;
+         T_IO.Put_Line(ASCII.HT & ASCII.HT & "<arguments> : <graph-file> <number-of-colors>");
          T_IO.Put_Line(ASCII.HT & "-h" & ASCII.HT & "Show this help.");
          T_IO.New_Line;
    end case;

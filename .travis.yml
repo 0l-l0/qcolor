@@ -12,6 +12,9 @@ addons:
     - gnat
     - gprbuild
 
+env:
+  - CL_DEFAULT_DEVICE=CPU
+
 install:
   - rm -rf ext
   - git clone https://github.com/flyx/OpenCLAda.git ext/OpenCLAda

@@ -77,5 +77,6 @@ package Qcolor is
    Imperfect_File : exception;
    Illegal_Character : exception;
    No_Arguments : exception;
+   Invalid_Device_Kind : exception;
 
 end Qcolor;

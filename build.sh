@@ -23,14 +23,14 @@ C_OFF='\033[0m'
 BASENAME=$(ls -d $0)
 cd $(dirname $BASENAME)
 
-printf "$C_GREEN #$C_OFF Building qcolor binary..."
+printf "$C_GREEN #$C_OFF Building qcolor binary...\n"
 
 TEST_ARGS=""
 if [ $# -eq 1 ] && [ "$1" = "test" ]
 then
 	TEST_ARGS="-f -cargs -fprofile-arcs -ftest-coverage -largs -fprofile-arcs"
 	rm -rf ./obj
-	printf "$C_GREEN #$C_OFF (Building for testing)"
+	printf "$C_GREEN #$C_OFF (Building for testing)\n"
 fi
 
 WIN_SYS=windows
@@ -51,7 +51,7 @@ gprbuild -p -Pquasi_coloring.gpr \
 
 if [ $? -ne 0 ]
 then
-	printf "$C_RED #$C_OFF qcolor build failed. :("
+	printf "$C_RED #$C_OFF qcolor build failed. :(\n"
 else
-	printf "$C_GREEN #$C_OFF qcolor binary built successfully. (Check bin directory.)"
+	printf "$C_GREEN #$C_OFF qcolor binary built successfully. (Check bin directory.)\n"
 fi

@@ -32,7 +32,8 @@ with Qcolor.Tools;	use Qcolor.Tools;
 with System;
 
 procedure Qcolor.Host(Source_File : in out S_IO.File_Type;
-                      Clr_Num : in Unit)
+                      Clr_Num : in Unit;
+                      CL_Device_Kind : in CL.Platforms.Device_Kind)
 is
 --     Log_File,
    Kernel_File	: T_IO.File_Type;
@@ -91,7 +92,7 @@ begin
    -- Initializing the OpenCL environment
    S_IO.Reset(Source_File);
    Platform	:= CL.Platforms.List(1);
-   Device	:= Platform.Devices (CL.Platforms.Device_Kind'(GPU => True, others => False))(1);
+   Device	:= Platform.Devices (CL_Device_Kind)(1);
    Device_List	:= (1 => Device);
    M_Work_Size	:= 80;--CL.Platforms.Max_Work_Group_Size(Device);
    Global_Work_Size := new CL.Size_List'(1 => M_Work_Size);
