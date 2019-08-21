@@ -15,7 +15,7 @@ install:
 script:
   - ./build.sh test
   - ./bin/qcolor -g test
-  - ./bin/qcolor -c test 4
+  - ./bin/qcolor -c test 3
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
