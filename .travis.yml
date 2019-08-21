@@ -7,6 +7,7 @@ addons:
     packages:
     - libpocl2
     - gprbuild
+    - git
 
 install:
   - [ -d ext ] && rm -rf ext
