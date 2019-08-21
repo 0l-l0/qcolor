@@ -1,4 +1,7 @@
 # qcolor
+[![Build Status](https://travis-ci.org/0l-l0/qcolor.svg?branch=master)](https://travis-ci.org/0l-l0/qcolor)
+[![codecov](https://codecov.io/gh/0l-l0/qcolor/branch/master/graph/badge.svg)](https://codecov.io/gh/0l-l0/qcolor)
+
 qcolor is a greedy graph quasi-coloring algorithm which can be used to
 calculate a lower bound for the _k_ parameter of the feasible _k_-colorings of
 a finite simple graph, furthermore, it also gives an upper bound for the
