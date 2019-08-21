@@ -25,6 +25,14 @@ cd $(dirname $BASENAME)
 
 echo -e "$C_GREEN #$C_OFF Building qcolor binary..."
 
+TEST_ARGS=""
+if [ $# -eq 1 ] && [ "$1" = "test" ]
+then
+	TEST_ARGS="-f -cargs -fprofile-arcs -ftest-coverage -largs -fprofile-arcs"
+	rm -rf ./obj
+	echo -e "$C_GREEN #$C_OFF (Building for testing)"
+fi
+
 WIN_SYS=windows
 UNAME=$(uname)
 if [ "$UNAME" = "Linux" ]
@@ -37,7 +45,8 @@ fi
 
 export GPR_PROJECT_PATH=${GPR_PROJECT_PATH:-'./ext/OpenCLAda'}
 
-gprbuild -p -Pquasi_coloring.gpr -XWindowing_System=$WIN_SYS -Xmode=release
+gprbuild -p -Pquasi_coloring.gpr \
+	-XWindowing_System=$WIN_SYS -Xmode=release $TEST_ARGS
 
 if [ $? -ne 0 ]
 then

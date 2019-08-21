@@ -5,14 +5,14 @@ a finite simple graph, furthermore, it also gives an upper bound for the
 maximum clique of the given graph.
 
 This algorithm is not unique in calculating the two above-mentioned bounds but
-it holds two really advantageous property, namely, it runs in polinomial time
+it holds two really advantageous property, namely, it runs in polynomial time
 and it is very easily parallelizable.
 
 A more detailed description of the algorithm can be found in the original
 article of Szabó and Zaválnij [1] and the `doc` folder also contains a
 commented example run.
 
-This repository contains an Ada implementation using OpenCL kernel for the
+This repository contains an Ada implementation using OpenCL kernels for the
 actual work.
 
 ## Dependencies

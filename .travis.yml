@@ -1,0 +1,21 @@
+language: generic
+sudo: false
+
+addons:
+  apt:
+    update: true
+    packages:
+    - libpocl2
+    - gprbuild
+
+install:
+  - [ -d ext ] && rm -rf ext
+  - git clone https://github.com/flyx/OpenCLAda.git ext/OpenCLAda
+
+script:
+  - ./build.sh test
+  - ./bin/qcolor -g test
+  - ./bin/qcolor -c test 4
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
